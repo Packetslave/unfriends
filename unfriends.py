@@ -8,11 +8,6 @@ import gflags
 FLAGS = gflags.FLAGS
 
 gflags.DEFINE_string(
-    'api_token_file',
-    '/Users/blanders/.fbtoken',
-    'location of file containing Facebook API token')
-
-gflags.DEFINE_string(
     'history_file',
     '/Users/blanders/.unfriender',
     'location of file for storing history')
@@ -23,11 +18,11 @@ def main(argv):
     try:
         argv = FLAGS(argv)  # parse flags
     except gflags.FlagsError, err:
-        print '%s\\nUsage: %s ARGS\\n%s' % (err, sys.argv[0], FLAGS)
+        print '%s\\nUsage: %s token\\n%s' % (err, sys.argv[0], FLAGS)
         sys.exit(1)
 
-    with open(FLAGS.api_token_file) as tf:
-        token = tf.read().strip()
+    if len(argv) != 2:
+        print 'Usage: %s token\\n' % (sys.argv[0])
 
     old_friends = set()
     if os.path.exists(FLAGS.history_file):
@@ -35,7 +30,7 @@ def main(argv):
             for line in hf:
                 old_friends.add(line.strip())
 
-    fb = facebook.GraphAPI(token)
+    fb = facebook.GraphAPI(argv[1])
     friends = fb.get_connections('me', 'friends')
 
     new_friends = set()
