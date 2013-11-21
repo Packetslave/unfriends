@@ -9,7 +9,7 @@ FLAGS = gflags.FLAGS
 
 gflags.DEFINE_string(
     'history_file',
-    '/Users/blanders/.unfriender',
+    '%s/.unfriender' % os.getenv('HOME'),
     'location of file for storing history')
 
 
