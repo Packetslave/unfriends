@@ -1,4 +1,1 @@
-unfriends
-=========
-
-Detect new Facebook friends and "unfriends" using the Graph API
+This doesn't work any longer due to changes in the Facebook API.
